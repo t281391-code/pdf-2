@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mobile - Уул уурхайн тэсрэх бодисын үйлдвэрийн KPI хяналтын веб систем</title>
+  <style>
+    @page { size: 4.5in 8in; margin: 0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #dbe7f3; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #102033;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .slide {
+      width: 4.5in;
+      height: 8in;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #edf6ff 0%, #dfeeff 48%, #eef5fb 100%);
+      padding: 0.28in 0.25in 0.38in;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 84%, rgba(249, 115, 22, 0.10), transparent 1.5in),
+        radial-gradient(circle at 92% 8%, rgba(37, 99, 235, 0.16), transparent 1.45in),
+        radial-gradient(circle at 78% 78%, rgba(34, 197, 94, 0.08), transparent 1.3in),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(15, 23, 42, 0.040) 1px, transparent 1px);
+      background-size: auto, 0.34in 0.34in, 0.34in 0.34in;
+      pointer-events: none;
+    }
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.30;
+      background:
+        radial-gradient(ellipse at 78% 30%, rgba(34, 211, 238, 0.18), transparent 0.72in),
+        radial-gradient(ellipse at 82% 28%, rgba(37, 99, 235, 0.16), transparent 1.05in),
+        linear-gradient(112deg, transparent 0 51%, rgba(34, 211, 238, 0.44) 51.25%, transparent 51.6%),
+        repeating-linear-gradient(112deg, transparent 0 0.15in, rgba(30, 64, 175, 0.15) 0.158in, transparent 0.17in),
+        repeating-linear-gradient(18deg, transparent 0 0.18in, rgba(15, 23, 42, 0.11) 0.19in, transparent 0.205in);
+      -webkit-mask-image: radial-gradient(ellipse at 78% 30%, #000 0 36%, transparent 70%);
+      mask-image: radial-gradient(ellipse at 78% 30%, #000 0 36%, transparent 70%);
+      mix-blend-mode: multiply;
+      animation: gridScanDriftMobile 8s linear infinite;
+    }
+    .slide:nth-child(even)::after {
+      background:
+        radial-gradient(ellipse at 78% 30%, rgba(249, 115, 22, 0.14), transparent 0.72in),
+        radial-gradient(ellipse at 82% 28%, rgba(37, 99, 235, 0.14), transparent 1.05in),
+        linear-gradient(112deg, transparent 0 51%, rgba(249, 115, 22, 0.32) 51.25%, transparent 51.6%),
+        repeating-linear-gradient(112deg, transparent 0 0.15in, rgba(30, 64, 175, 0.13) 0.158in, transparent 0.17in),
+        repeating-linear-gradient(18deg, transparent 0 0.18in, rgba(15, 23, 42, 0.10) 0.19in, transparent 0.205in);
+    }
+    @keyframes gridScanDriftMobile {
+      0% { background-position: 0 0, 0 0, -0.6in 0, 0 0, 0 0; }
+      100% { background-position: 0 0, 0 0, 1.1in 0, 0.36in 0.24in, -0.28in 0.44in; }
+    }
+    .content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; gap: 0.12in; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 0.1in; }
+    .section {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.08in;
+      color: #64748b;
+      font-size: 9.5px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .section b {
+      display: inline-grid;
+      place-items: center;
+      width: 0.28in;
+      height: 0.28in;
+      border-radius: 9px;
+      color: #fff;
+      background: #0f172a;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 28px; line-height: 1.08; letter-spacing: 0; }
+    h2 { font-size: 21px; line-height: 1.14; letter-spacing: 0; }
+    h3 { font-size: 13px; line-height: 1.2; }
+    p { font-size: 10.7px; line-height: 1.36; color: #475569; }
+    .lead { font-size: 12.2px; line-height: 1.4; color: #334155; }
+    .small { font-size: 9px; line-height: 1.28; }
+    .grid { display: grid; gap: 0.09in; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .card {
+      background: rgba(255, 255, 255, 0.93);
+      border: 1px solid #dce6f1;
+      border-radius: 12px;
+      padding: 0.11in;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    }
+    .card h3 { margin-bottom: 0.05in; color: #102033; }
+    .accent {
+      border-radius: 15px;
+      background: linear-gradient(135deg, #0f172a, #1e40af);
+      color: #fff;
+      padding: 0.14in;
+      box-shadow: 0 14px 30px rgba(30, 64, 175, 0.22);
+    }
+    .accent p, .accent .small { color: #dbeafe; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 0.05in; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.04in;
+      padding: 0.045in 0.065in;
+      border-radius: 999px;
+      background: #f1f5f9;
+      border: 1px solid #dbe6f0;
+      color: #334155;
+      font-size: 8.4px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .dot { width: 0.07in; height: 0.07in; border-radius: 999px; display: inline-block; }
+    .orange { background: #f97316; }
+    .green { background: #22c55e; }
+    .red { background: #ef4444; }
+    .blue { background: #2563eb; }
+    .black { background: #0f172a; }
+    .metric { display: flex; flex-direction: column; gap: 0.02in; border-left: 3px solid #2563eb; padding-left: 0.08in; }
+    .metric strong { font-size: 18px; line-height: 1; color: #0f172a; }
+    .metric span { font-size: 8.2px; color: #64748b; font-weight: 900; }
+    .survey-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.06in; }
+    .survey-card {
+      display: grid;
+      grid-template-columns: 0.48in 1fr;
+      gap: 0.055in;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid #dce6f1;
+      border-radius: 11px;
+      padding: 0.07in;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+    }
+    .survey-pie {
+      width: 0.45in;
+      height: 0.45in;
+      border-radius: 50%;
+      position: relative;
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+    }
+    .survey-pie::after {
+      content: "";
+      position: absolute;
+      inset: 0.13in;
+      border-radius: 50%;
+      background: #fff;
+    }
+    .survey-card h3 { font-size: 8.6px; line-height: 1.15; margin: 0 0 0.02in; }
+    .survey-card p { font-size: 7.4px; line-height: 1.18; margin: 0; color: #64748b; font-weight: 900; }
+    .survey-card strong { color: #0f172a; font-size: 10px; }
+    .foot {
+      position: absolute;
+      left: 0.25in;
+      right: 0.25in;
+      bottom: 0.16in;
+      display: flex;
+      justify-content: space-between;
+      color: #7a8aa0;
+      font-size: 8px;
+      font-weight: 800;
+    }
+    .agenda { display: grid; gap: 0.075in; margin-top: 0.05in; }
+    .agenda-item {
+      display: grid;
+      grid-template-columns: 0.28in 1fr;
+      gap: 0.08in;
+      align-items: start;
+      padding: 0.095in;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid #dce6f1;
+    }
+    .agenda-item b {
+      width: 0.25in;
+      height: 0.25in;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 8.5px;
+    }
+    .agenda-item strong { display: block; font-size: 10.3px; margin-bottom: 2px; }
+    .agenda-item span { display: block; color: #64748b; font-size: 8.3px; line-height: 1.25; }
+    .check-list { display: grid; gap: 0.055in; }
+    .check { display: flex; align-items: flex-start; gap: 0.055in; color: #334155; font-size: 9.3px; line-height: 1.28; font-weight: 700; }
+    .check::before {
+      content: "";
+      flex: 0 0 0.06in;
+      width: 0.06in;
+      height: 0.06in;
+      margin-top: 0.035in;
+      border-radius: 999px;
+      background: #2563eb;
+    }
+    table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border: 1px solid #dce6f1; border-radius: 11px; background: #fff; font-size: 7.8px; box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06); }
+    th, td { padding: 0.052in 0.045in; border-bottom: 1px solid #e2e8f0; vertical-align: top; text-align: left; }
+    th { background: #f8fafc; color: #334155; font-size: 7.2px; text-transform: uppercase; letter-spacing: 0.03em; }
+    tr:last-child td { border-bottom: 0; }
+    .level { display: inline-flex; border-radius: 999px; padding: 0.03in 0.05in; font-size: 7.4px; font-weight: 900; }
+    .high { background: #fee2e2; color: #991b1b; }
+    .mid { background: #fef3c7; color: #92400e; }
+    .low { background: #dcfce7; color: #166534; }
+    .browser { background: #fff; border: 1px solid #d9e4f0; border-radius: 14px; box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12); overflow: hidden; }
+    .browser-top { height: 0.25in; display: flex; align-items: center; gap: 0.04in; padding: 0 0.1in; background: #f8fafc; border-bottom: 1px solid #e2e8f0; }
+    .browser-dot { width: 0.055in; height: 0.055in; border-radius: 999px; background: #cbd5e1; }
+    .browser-body { padding: 0.1in; }
+    .dash-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.07in; margin: 0.08in 0; }
+    .dash-card { border-radius: 10px; padding: 0.08in; color: #fff; min-height: 0.58in; display: flex; flex-direction: column; justify-content: space-between; }
+    .dash-card span { font-size: 7.4px; font-weight: 900; opacity: .9; }
+    .dash-card b { font-size: 16px; }
+    .bars { display: flex; align-items: end; gap: 0.055in; height: 0.85in; padding-top: 0.08in; }
+    .bar { flex: 1; border-radius: 6px 6px 0 0; background: linear-gradient(180deg, #60a5fa, #2563eb); min-height: 0.15in; }
+    .flow { display: grid; gap: 0.07in; }
+    .flow-node {
+      display: grid;
+      grid-template-columns: 0.28in 1fr;
+      gap: 0.08in;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #dce6f1;
+      border-radius: 12px;
+      padding: 0.08in;
+    }
+    .flow-node b {
+      width: 0.27in;
+      height: 0.27in;
+      border-radius: 8px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      display: grid;
+      place-items: center;
+      font-size: 8px;
+    }
+    .flow-node strong { display: block; font-size: 9.7px; }
+    .flow-node span { color: #64748b; font-size: 8.2px; line-height: 1.25; font-weight: 700; }
+    .entity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.075in; }
+    .entity { border: 1px solid #cbd5e1; border-radius: 10px; padding: 0.075in; background: #fff; font-size: 8px; }
+    .entity strong { display: block; font-size: 9.5px; margin-bottom: 0.025in; }
+    .entity span { display: block; color: #64748b; line-height: 1.2; }
+    .entity-grid.erd-mobile .erd-wide { grid-column: 1 / -1; }
+    .entity-grid.erd-mobile .entity { font-size: 9px; padding: 0.085in; }
+    .entity-grid.erd-mobile .entity strong { font-size: 11px; }
+    .entity.erd-core { border: 1.5px solid #2563eb; background: #eff6ff; }
+    .entity.erd-orange { border-left: 4px solid #f97316; }
+    .entity.erd-green { border-left: 4px solid #22c55e; }
+    .entity.erd-red { border-left: 4px solid #ef4444; }
+    .entity.erd-blue { border-left: 4px solid #2563eb; }
+    .entity.erd-dark { border-left: 4px solid #0f172a; }
+    .entity .relation { margin-top: 0.03in; color: #1d4ed8; font-weight: 900; }
+    .gauge-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.07in; }
+    .gauge { background: #fff; border: 1px solid #dce6f1; border-radius: 12px; padding: 0.08in; text-align: center; }
+    .dial { width: 0.7in; height: 0.7in; margin: 0 auto 0.05in; border-radius: 50%; background: conic-gradient(#22c55e 0 62%, #f97316 62% 82%, #ef4444 82% 100%); position: relative; }
+    .dial::after { content: ""; position: absolute; inset: 0.09in; background: #fff; border-radius: 50%; box-shadow: inset 0 0 0 1px #e2e8f0; }
+    .dial b { position: absolute; inset: 0; display: grid; place-items: center; z-index: 2; font-size: 12px; color: #0f172a; }
+    .wide-note { margin-top: auto; padding: 0.09in 0.1in; border-radius: 12px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a8a; font-size: 9.4px; font-weight: 900; line-height: 1.3; }
+    .blur-text .blur-word {
+      display: inline-block;
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(14px);
+      transition:
+        opacity 700ms ease,
+        filter 700ms ease,
+        transform 700ms ease;
+      transition-delay: calc(var(--word-index, 0) * 36ms);
+      will-change: opacity, filter, transform;
+    }
+    .blur-text.blur-in .blur-word {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .blur-text .blur-word {
+        opacity: 1;
+        filter: none;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    @media screen and (max-width: 520px) {
+      body { display: block; }
+      .slide {
+        width: 100%;
+        height: auto;
+        min-height: 100svh;
+        overflow: visible;
+        padding: 18px 14px 42px;
+        margin: 0 auto 14px;
+        page-break-after: auto;
+        break-after: auto;
+      }
+      .content {
+        height: auto;
+        min-height: calc(100svh - 60px);
+      }
+      h1 { font-size: clamp(27px, 9vw, 34px); }
+      h2 { font-size: 22px; }
+      h3 { font-size: 15px; }
+      p, .lead { font-size: 13px; }
+      .small { font-size: 10.5px; }
+      .grid-2, .entity-grid, .gauge-row { grid-template-columns: 1fr !important; }
+      .chip { font-size: 10.5px; }
+      table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 10px;
+      }
+      th, td {
+        min-width: 105px;
+        padding: 8px;
+      }
+      .foot {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin-top: auto;
+        padding-top: 10px;
+      }
+    }
+
+    @media print {
+      body { display: block; }
+      .slide { margin: 0; }
+      .slide::after { animation: none !important; }
+      .blur-text .blur-word {
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>01</b> Нүүр хуудас</div><span class="chip">2026</span></div>
+      <p class="lead" style="font-weight:900;color:#2563eb;">Мэргэжлийн веб системийн танилцуулга</p>
+      <h1>Уул уурхайн тэсрэх бодисын үйлдвэрийн KPI хяналтын веб систем</h1>
+      <p class="lead">Үйлдвэрлэл, агуулах, аюулгүй байдал, ложистик болон тоног төхөөрөмжийн төлөвийг нэг хяналтын самбарт нэгтгэнэ.</p>
+      <div class="grid grid-2">
+        <div class="card"><p class="small" style="font-weight:900;color:#64748b;">Оюутан</p><h3>Т. АМАРБОЛД</h3></div>
+        <div class="card"><p class="small" style="font-weight:900;color:#64748b;">Удирдагч багш</p><h3>Багш: Энхжин, Тэмүүлэн</h3></div>
+      </div>
+      <div class="accent">
+        <div class="grid grid-2">
+          <div class="card"><div class="metric"><strong>5 сек</strong><span>удирдлагын ойлголт</span></div></div>
+          <div class="card"><div class="metric"><strong>3</strong><span>эрхийн түвшин</span></div></div>
+          <div class="card"><div class="metric"><strong>4</strong><span>хэлтэс</span></div></div>
+          <div class="card"><div class="metric"><strong>1</strong><span>production байршуулалт</span></div></div>
+        </div>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Prisma ORM</span><span class="chip">MySQL / Aiven</span><span class="chip">Vercel</span>
+      </div>
+      <div class="survey-mini-grid" aria-label="Судалгааны товч үр дүн">
+        <div class="survey-card">
+          <div class="survey-pie" style="background:conic-gradient(#2563eb 0 10.9%, #dc3912 10.9% 37%, #ff9900 37% 56.6%, #109618 56.6% 95.7%, #990099 95.7% 97.9%, #0099c6 97.9% 100%);"></div>
+          <div><h3>KPI хэрэгцээ</h3><p><strong>39.1%</strong> сонирхож байна</p><p>46 хариулт</p></div>
+        </div>
+        <div class="survey-card">
+          <div class="survey-pie" style="background:conic-gradient(#2563eb 0 15.2%, #dc3912 15.2% 100%);"></div>
+          <div><h3>Өмнө ашигласан</h3><p><strong>84.8%</strong> ашиглаагүй</p><p>46 хариулт</p></div>
+        </div>
+      </div>
+      <div class="foot"><span>KPI хяналтын веб систем</span><span>01</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>02</b> Танилцуулгын бүтэц</div></div>
+      <h2>Үнэлгээтэй уялдсан дараалал</h2>
+      <div class="agenda">
+        <div class="agenda-item"><b>01</b><div><strong>Нүүр хуудас</strong><span>Төслийн нэр, зорилго, оролцогч</span></div></div>
+        <div class="agenda-item"><b>02</b><div><strong>Асуудал</strong><span>Тархсан өгөгдөл, удаан шийдвэр</span></div></div>
+        <div class="agenda-item"><b>03</b><div><strong>Шийдэл</strong><span>Нэгдсэн KPI dashboard</span></div></div>
+        <div class="agenda-item"><b>04</b><div><strong>Техникийн дэд бүтэц</strong><span>Архитектур, ERD, deployment</span></div></div>
+        <div class="agenda-item"><b>05</b><div><strong>Кодын хэрэгжилт</strong><span>API, хамгаалалт, тест</span></div></div>
+        <div class="agenda-item"><b>06</b><div><strong>Эрсдэл ба үнэлгээ</strong><span>Risk matrix, rubric</span></div></div>
+      </div>
+      <div class="wide-note">Mobile хувилбар нь vertical дэлгэц дээр уншигдахуйц, гол санааг богино блокуудаар харуулахад зориулагдсан.</div>
+      <div class="foot"><span>Танилцуулгын бүтэц</span><span>02</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>03</b> Асуудал</div></div>
+      <h2>Үйлдвэрийн төлөвийг нэг дор харах боломж дутмаг</h2>
+      <p class="lead">Агуулах, үйлдвэрлэл, safety, logistics, RPM мэдээлэл тусдаа байвал шийдвэр удааширна.</p>
+      <div class="grid">
+        <div class="card"><h3>Excel / цаасан бүртгэл</h3><p>Гар алдаа их, бодит цагийн төлөв харагдахгүй.</p></div>
+        <div class="card"><h3>Чат ба аман мэдээлэл</h3><p>Нэгтгэл удаан, trace хийхэд хүндрэлтэй.</p></div>
+        <div class="card"><h3>Тусдаа тайлан</h3><p>KPI, safety, RPM, logistics хоорондоо холбоогүй харагдана.</p></div>
+      </div>
+      <div class="accent"><p>Гол асуудал: захирал үйлдвэрийн нөхцөл байдлыг 5 секундэд ойлгоход хангалттай нэгтгэсэн харагдац байхгүй.</p></div>
+      <div class="foot"><span>Асуудал</span><span>03</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>04</b> Шийдэл</div></div>
+      <h2>Нэгдсэн KPI хяналтын самбар</h2>
+      <div class="browser">
+        <div class="browser-top"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span><span class="small" style="font-weight:900;">Dashboard загвар</span></div>
+        <div class="browser-body">
+          <strong>Үйлдвэрийн нэгдсэн төлөв</strong>
+          <div class="dash-cards">
+            <div class="dash-card" style="background:#f97316;"><span>Агуулах</span><b>82%</b><span>хэвийн</span></div>
+            <div class="dash-card" style="background:#22c55e;"><span>Үйлдвэрлэл</span><b>96%</b><span>төлөвлөгөө</span></div>
+            <div class="dash-card" style="background:#ef4444;"><span>Safety</span><b>1</b><span>анхаарах</span></div>
+            <div class="dash-card" style="background:#2563eb;"><span>Logistics</span><b>7</b><span>идэвхтэй</span></div>
+          </div>
+          <div class="bars"><span class="bar" style="height:.34in;"></span><span class="bar" style="height:.52in;"></span><span class="bar" style="height:.46in;"></span><span class="bar" style="height:.7in;"></span><span class="bar" style="height:.62in;"></span></div>
+        </div>
+      </div>
+      <div class="chip-row"><span class="chip"><span class="dot orange"></span>Агуулах</span><span class="chip"><span class="dot green"></span>Үйлдвэрлэл</span><span class="chip"><span class="dot red"></span>Аюулгүй байдал</span><span class="chip"><span class="dot blue"></span>Ложистик</span></div>
+      <div class="foot"><span>Шийдэл</span><span>04</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>05</b> Харьцуулалт</div></div>
+      <h2>Асуудал ба шийдлийн харьцуулалт</h2>
+      <table>
+        <thead><tr><th>Хувилбар</th><th>Давуу тал</th><th>Хязгаарлалт</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Excel / цаасан бүртгэл</strong></td><td>Эхлэхэд хялбар</td><td>Realtime байхгүй, эрхийн хяналт сул</td></tr>
+          <tr><td><strong>Ерөнхий dashboard систем</strong></td><td>График, ерөнхий тайлантай</td><td>Үйлдвэрийн workflow, RPM, RBAC тусгайлан таарахгүй</td></tr>
+          <tr><td><strong>Миний KPI dashboard систем</strong></td><td>Хэлтэс, KPI, RPM, alert, RBAC, deployment нэг дор</td><td>Цаашид module-ийг тусад нь scale хийх боломжтой</td></tr>
+        </tbody>
+      </table>
+      <div class="wide-note">Үнэлгээний давуу тал: асуудал, шийдэл, өрсөлдөгч хувилбарын ялгаа тодорхой харагдана.</div>
+      <div class="foot"><span>Харьцуулалт</span><span>05</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>06</b> Архитектур</div></div>
+      <h2>Системийн архитектур</h2>
+      <div class="flow">
+        <div class="flow-node"><b>1</b><div><strong>React UI</strong><span>KPI карт, chart, table, alert</span></div></div>
+        <div class="flow-node"><b>2</b><div><strong>Next.js API</strong><span>App Router, protected routes</span></div></div>
+        <div class="flow-node"><b>3</b><div><strong>JWT + RBAC</strong><span>ADMIN, MODERATOR, USER</span></div></div>
+        <div class="flow-node"><b>4</b><div><strong>Zod validation</strong><span>Request body, enum, огноо, тоо хэмжээ</span></div></div>
+        <div class="flow-node"><b>5</b><div><strong>Prisma ORM</strong><span>Schema, relation, parameterized query</span></div></div>
+        <div class="flow-node"><b>6</b><div><strong>Aiven MySQL</strong><span>Managed database, SSL</span></div></div>
+      </div>
+      <div class="wide-note">Архитектур нь modular monolith: нэг codebase, нэг deploy pipeline, module бүр тусдаа үүрэгтэй.</div>
+      <div class="foot"><span>Архитектур</span><span>06</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>07</b> Database / ERD</div></div>
+      <h2>Өгөгдлийн сангийн загвар</h2>
+      <div class="entity-grid erd-mobile">
+        <div class="entity erd-core erd-wide"><strong>User + Department</strong><span>User: role, email, passwordHash</span><span>Department: Warehouse, Production, Safety, Logistics</span><span class="relation">FK: User.departmentId -> Department.id</span></div>
+        <div class="entity erd-orange"><strong>Агуулах</strong><span>Material: stock, unit, threshold</span><span>MaterialTransaction: type, quantity</span><span class="relation">FK: materialId, userId</span></div>
+        <div class="entity erd-green"><strong>Үйлдвэрлэл</strong><span>ProductionLog: date, quantity</span><span>createdBy, department scope</span><span class="relation">FK: createdById -> User.id</span></div>
+        <div class="entity erd-red"><strong>Аюулгүй байдал</strong><span>SafetyIncident: severity, status</span><span>Alert болон owner tracking</span><span class="relation">FK: ownerId -> User.id</span></div>
+        <div class="entity erd-blue"><strong>Ложистик / RPM</strong><span>TransportRecord: route, status</span><span>EquipmentTelemetry: rpm, load, healthScore</span><span class="relation">FK: departmentId</span></div>
+        <div class="entity erd-dark erd-wide"><strong>AiAgentAuditLog</strong><span>AI toolName, request, result, createdAt</span><span class="relation">FK: userId -> User.id, бүх чухал үйлдэл мөртэй</span></div>
+      </div>
+      <div class="card"><h3>ERD-ийн тайлбар</h3><p>Төв нь User ба Department. Хэлтсийн бүх бүртгэл FK холбоосоор хэрэглэгч, хэлтэстэй холбогдож dashboard, audit, RBAC шалгалт нэг эх өгөгдлөөс ажиллана.</p></div>
+      <div class="foot"><span>Database / ERD</span><span>07</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>08</b> Кодын хэрэгжилт</div></div>
+      <h2>Хамгаалагдсан API ба бизнес логик</h2>
+      <div class="flow">
+        <div class="flow-node"><b>1</b><div><strong>JWT нэвтрэлт</strong><span>Session cookie шалгана</span></div></div>
+        <div class="flow-node"><b>2</b><div><strong>RBAC эрх</strong><span>Role ба department шалгана</span></div></div>
+        <div class="flow-node"><b>3</b><div><strong>Zod validation</strong><span>Input буруу бол database руу оруулахгүй</span></div></div>
+        <div class="flow-node"><b>4</b><div><strong>Prisma operation</strong><span>CRUD, query, relation</span></div></div>
+        <div class="flow-node"><b>5</b><div><strong>Audit ба response</strong><span>Чухал action бүртгэгдэнэ</span></div></div>
+      </div>
+      <div class="chip-row"><span class="chip">Нэвтрэлт</span><span class="chip">Хэрэглэгч</span><span class="chip">Материал</span><span class="chip">Production log</span><span class="chip">Safety</span><span class="chip">RPM</span></div>
+      <div class="foot"><span>Кодын хэрэгжилт</span><span>08</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>09</b> Тестлэл</div></div>
+      <h2>Тестлэлийн хамрах хүрээ</h2>
+      <table>
+        <thead><tr><th>Тест</th><th>Шалгах зүйл</th><th>Амжилтын шалгуур</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Postman API test</strong></td><td>Endpoint response</td><td>200/201, алдаанд 400/401/403</td></tr>
+          <tr><td><strong>Login/auth test</strong></td><td>JWT session</td><td>Зөв user орно, буруу user rejected</td></tr>
+          <tr><td><strong>RBAC role test</strong></td><td>ADMIN, MODERATOR, USER</td><td>Role бүр зөв эрхтэй</td></tr>
+          <tr><td><strong>CRUD test</strong></td><td>Create, read, update, delete</td><td>Database ба UI шинэчлэгдэнэ</td></tr>
+          <tr><td><strong>Dashboard refresh test</strong></td><td>SWR refresh</td><td>Manual reload шаардахгүй</td></tr>
+          <tr><td><strong>Protected API route test</strong></td><td>Нэвтрээгүй request</td><td>401 эсвэл 403 буцаана</td></tr>
+        </tbody>
+      </table>
+      <div class="foot"><span>Тестлэл</span><span>09</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>10</b> KPI ба RPM</div></div>
+      <h2>Бодит цагийн KPI ба RPM telemetry</h2>
+      <div class="gauge-row">
+        <div class="gauge"><div class="dial"><b>740</b></div><h3>Эцсийн холигч</h3><p class="small">хэвийн</p></div>
+        <div class="gauge"><div class="dial"><b>610</b></div><h3>Моно насос</h3><p class="small">ачаалалтай</p></div>
+        <div class="gauge"><div class="dial"><b>830</b></div><h3>Уусмалын насос</h3><p class="small">шалгах</p></div>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>Real-time update</h3><p>SWR cache, mutation update, 5 секундийн шинэчлэлт.</p></div>
+        <div class="card"><h3>Анхааруулга</h3><p>RPM, safety, material threshold давбал өнгөөр ялгана.</p></div>
+        <div class="card"><h3>Захирлын харагдац</h3><p>Гол KPI эхний дэлгэц дээр төвлөрнө.</p></div>
+      </div>
+      <div class="foot"><span>KPI ба RPM</span><span>10</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>11</b> Deployment</div></div>
+      <h2>Байршуулалтын архитектур</h2>
+      <div class="flow">
+        <div class="flow-node"><b>1</b><div><strong>GitHub</strong><span>Source code, main branch</span></div></div>
+        <div class="flow-node"><b>2</b><div><strong>Vercel</strong><span>Next.js app + API routes</span></div></div>
+        <div class="flow-node"><b>3</b><div><strong>Aiven MySQL</strong><span>SSL холболттой database</span></div></div>
+        <div class="flow-node"><b>4</b><div><strong>Environment variables</strong><span>DATABASE_URL, JWT_SECRET</span></div></div>
+        <div class="flow-node"><b>5</b><div><strong>Production</strong><span>HTTPS dashboard</span></div></div>
+      </div>
+      <div class="wide-note">Нууц утгыг git-д хадгалахгүй, Vercel dashboard дээр тохируулна.</div>
+      <div class="foot"><span>Deployment</span><span>11</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>12</b> Эрсдэлийн менежмент</div></div>
+      <h2>Эрсдэл ба авах арга хэмжээ</h2>
+      <table>
+        <thead><tr><th>Эрсдэл</th><th>Түвшин</th><th>Арга хэмжээ</th></tr></thead>
+        <tbody>
+          <tr><td>Зөвшөөрөлгүй хандалт</td><td><span class="level high">Өндөр</span></td><td>JWT, RBAC, protected route</td></tr>
+          <tr><td>Буруу input</td><td><span class="level high">Өндөр</span></td><td>Zod validation, Prisma constraint</td></tr>
+          <tr><td>RPM анхааруулга хожимдох</td><td><span class="level mid">Дунд</span></td><td>Threshold alert, refresh</td></tr>
+          <tr><td>Database connection</td><td><span class="level mid">Дунд</span></td><td>Aiven SSL, retry, env</td></tr>
+          <tr><td>Хэрэглэгч дасахгүй байх</td><td><span class="level mid">Дунд</span></td><td>Энгийн UI, өнгө, сургалт</td></tr>
+        </tbody>
+      </table>
+      <div class="wide-note">Зөвшөөрөл, баталгаажуулалт, бүртгэлийн мөр гэсэн гурван давхар хамгаалалт ашиглана.</div>
+      <div class="foot"><span>Эрсдэлийн менежмент</span><span>12</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>13</b> Дүгнэлт</div></div>
+      <h2>Үр дүн ба цаашдын зорилт</h2>
+      <div class="grid">
+        <div class="card"><h3>Үр дүн</h3><p>KPI, CRUD, RBAC, database, RPM telemetry, deployment нэг системд нэгтгэсэн.</p></div>
+        <div class="card"><h3>5 секундийн ойлголт</h3><p>Захирал эхний дэлгэцээс үйлдвэрийн нөхцөл байдлыг шууд ойлгоно.</p></div>
+        <div class="card"><h3>Дараагийн зорилт</h3><p>OpenAPI, automated test, CI/CD, notification, WebSocket update, analytics.</p></div>
+      </div>
+      <div class="accent"><p>Дүгнэлт: төсөл нь асуудал, шийдэл, архитектур, хэрэгжилт, эрсдэл, үнэлгээний шалгуурыг нэг цогц хамгаалалтын presentation болгосон.</p></div>
+      <div class="foot"><span>Дүгнэлт</span><span>13</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="content">
+      <div class="topbar"><div class="section"><b>14</b> Үнэлгээний хүснэгт</div></div>
+      <h2 style="font-size:17px;">ТӨГСӨЛТИЙН ТӨСЛИЙН ҮНЭЛГЭЭНИЙ ХҮСНЭГТ</h2>
+      <p class="lead">Нийт оноо: 100 | Тэнцэх босго: 60</p>
+      <table>
+        <thead><tr><th>Бүлэг</th><th>Оноо</th><th>Туссан байдал</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. ТАНИЛЦУУЛГА</strong></td><td>15</td><td>Зорилго, scope, бүтэц тодорхой.</td></tr>
+          <tr><td><strong>2. АСУУДАЛ БА ШИЙДЭЛ</strong></td><td>25</td><td>Асуудал, шийдэл, харьцуулалт орсон.</td></tr>
+          <tr><td><strong>3. ТЕХНИКИЙН ДЭД БҮТЭЦ</strong></td><td>20</td><td>Архитектур, ERD, security, deployment.</td></tr>
+          <tr><td><strong>4. КОДЫН ХЭРЭГЖИЛТ</strong></td><td>25</td><td>API, RBAC, CRUD, test, dashboard refresh.</td></tr>
+          <tr><td><strong>5. ЭРСДЭЛИЙН МЕНЕЖМЕНТ</strong></td><td>15</td><td>Эрсдэл, түвшин, арга хэмжээ.</td></tr>
+        </tbody>
+      </table>
+      <div class="wide-note">Mobile болон desktop хувилбарууд ижил үндсэн бүтэцтэй, зөвхөн дэлгэцийн харьцаа ба layout өөр.</div>
+      <div class="foot"><span>Үнэлгээний хүснэгт</span><span>14</span></div>
+    </div>
+  </section>
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const skipSelector = "script, style, svg, canvas, video";
+
+      const wrapTextNode = (textNode, state) => {
+        const text = textNode.nodeValue;
+        if (!text || !text.trim()) return;
+
+        const fragment = document.createDocumentFragment();
+        const parts = text.split(/(\s+)/);
+        parts.forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            fragment.appendChild(document.createTextNode(part));
+            return;
+          }
+          const span = document.createElement("span");
+          span.className = "blur-word";
+          span.style.setProperty("--word-index", Math.min(state.wordIndex, 28));
+          span.textContent = part;
+          state.wordIndex += 1;
+          fragment.appendChild(span);
+        });
+
+        textNode.replaceWith(fragment);
+      };
+
+      slides.forEach((slide) => {
+        if (slide.dataset.blurReady === "true") return;
+        slide.classList.add("blur-text");
+
+        const textNodes = [];
+        const walker = document.createTreeWalker(slide, NodeFilter.SHOW_TEXT, {
+          acceptNode(node) {
+            if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+            const parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            if (parent.closest(skipSelector)) return NodeFilter.FILTER_REJECT;
+            if (parent.classList.contains("blur-word")) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+
+        let node;
+        while ((node = walker.nextNode())) textNodes.push(node);
+
+        const state = { wordIndex: 0 };
+        textNodes.forEach((textNode) => wrapTextNode(textNode, state));
+        slide.dataset.blurReady = "true";
+      });
+
+      const reveal = (element) => element.classList.add("blur-in");
+      if (!("IntersectionObserver" in window)) {
+        slides.forEach(reveal);
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          reveal(entry.target);
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.2 });
+      slides.forEach((slide) => observer.observe(slide));
+    })();
+  </script>
+</body>
+</html>

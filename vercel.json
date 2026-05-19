@@ -1,0 +1,18 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/pdf",
+      "destination": "/graduation-thesis-presentation.pdf"
+    },
+    {
+      "source": "/desktop",
+      "destination": "/graduation-thesis-presentation.html"
+    },
+    {
+      "source": "/mobile",
+      "destination": "/graduation-thesis-presentation-mobile.pdf"
+    }
+  ]
+}

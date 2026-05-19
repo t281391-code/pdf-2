@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="mn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Дипломын танилцуулга PDF</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: #dbe7f3;
+        color: #102033;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        padding: 22px clamp(18px, 4vw, 54px);
+        background: linear-gradient(135deg, #edf6ff 0%, #dfeeff 54%, #eef5fb 100%);
+        border-bottom: 1px solid #cbdced;
+      }
+
+      .topline {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 980px;
+        font-size: clamp(24px, 3.6vw, 42px);
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
+
+      p {
+        margin: 10px 0 0;
+        max-width: 880px;
+        color: #475569;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 34px;
+        padding: 8px 13px;
+        border-radius: 999px;
+        background: #ffffff;
+        border: 1px solid #dbe6f0;
+        color: #334155;
+        font-size: 13px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: #2563eb;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      a.button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 10px 15px;
+        border-radius: 10px;
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+        color: #0f172a;
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      a.button.primary {
+        border-color: #1d4ed8;
+        background: #2563eb;
+        color: #ffffff;
+      }
+
+      main {
+        flex: 1;
+        padding: clamp(14px, 2.5vw, 28px);
+      }
+
+      .viewer {
+        width: min(1280px, 100%);
+        margin: 0 auto;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #ffffff;
+        border: 1px solid #cbdced;
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.14);
+      }
+
+      iframe {
+        display: block;
+        width: 100%;
+        height: min(78vh, 860px);
+        min-height: 560px;
+        border: 0;
+        background: #eef5fb;
+      }
+
+      footer {
+        padding: 12px clamp(18px, 4vw, 54px) 22px;
+        color: #64748b;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      @media (max-width: 720px) {
+        iframe {
+          height: 70vh;
+          min-height: 460px;
+        }
+
+        .actions {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="topline">
+        <div class="badge"><span class="dot"></span>2026 дипломын танилцуулга</div>
+        <div class="badge">Т. АМАРБОЛД</div>
+      </div>
+      <h1>Уул уурхайн тэсрэх бодисын үйлдвэрийн KPI хяналтын веб систем</h1>
+      <p>Сүүлийн экспортолсон PDF presentation. Үндсэн хувилбар нь desktop layout бөгөөд mobile PDF болон HTML хувилбарууд мөн доорх холбоосоор нээгдэнэ.</p>
+      <div class="actions">
+        <a class="button primary" href="./graduation-thesis-presentation.pdf">PDF нээх</a>
+        <a class="button" href="./graduation-thesis-presentation.html">HTML presentation</a>
+        <a class="button" href="./graduation-thesis-presentation-mobile.pdf">Mobile PDF</a>
+        <a class="button" href="./README.md">Ярианы README</a>
+      </div>
+    </header>
+    <main>
+      <section class="viewer" aria-label="PDF viewer">
+        <iframe src="./graduation-thesis-presentation.pdf" title="Дипломын танилцуулга PDF"></iframe>
+      </section>
+    </main>
+    <footer>
+      Удирдагч багш: Энхжин, Тэмүүлэн
+    </footer>
+  </body>
+</html>
