@@ -1171,12 +1171,12 @@
         </div>
         <div class="grid" style="gap:12px;">
           <div class="card">
-            <h3>ERD-ийн гол санаа</h3>
+            <h3>Гол санаа</h3>
             <div class="check-list">
-              <div class="check">User нь эрх болон хэлтэстэй холбогдож хандах хүрээг тогтооно.</div>
-              <div class="check">ProductionLog, SafetyIncident, TransportRecord нь хэн бүртгэсэн гэдгийг мөрдөх боломжтой.</div>
-              <div class="check">EquipmentTelemetry нь RPM, load, health score-г dashboard-д өгнө.</div>
-              <div class="check">AiAgentAuditLog нь AI tool дуудлага бүрийг мөрдөнө.</div>
+              <div class="check"><strong>Database</strong> нь relational бүтэцтэй. Хүснэгтүүд foreign key холбоосоор холбогдсон.</div>
+              <div class="check"><strong>User table</strong> нь хэрэглэгчийн мэдээлэл хадгална. Role болон department-тай холбоотой.</div>
+              <div class="check"><strong>Department</strong> table нь warehouse, production, safety, logistics гэх мэт хэлтсүүдийг удирддаг.</div>
+              <div class="check"><strong>ProductionLog</strong> нь үйлдвэрлэлийн бүртгэл хадгална. Хэн, хэдэн кг бүтээгдэхүүн үйлдвэрлэснийг бүртгэнэ.</div>
             </div>
           </div>
           <div class="card">

@@ -462,7 +462,7 @@
         <div class="entity erd-blue"><strong>Ложистик / RPM</strong><span>TransportRecord: route, status</span><span>EquipmentTelemetry: rpm, load, healthScore</span><span class="relation">FK: departmentId</span></div>
         <div class="entity erd-dark erd-wide"><strong>AiAgentAuditLog</strong><span>AI toolName, request, result, createdAt</span><span class="relation">FK: userId -> User.id, бүх чухал үйлдэл мөртэй</span></div>
       </div>
-      <div class="card"><h3>ERD-ийн тайлбар</h3><p>Төв нь User ба Department. Хэлтсийн бүх бүртгэл FK холбоосоор хэрэглэгч, хэлтэстэй холбогдож dashboard, audit, RBAC шалгалт нэг эх өгөгдлөөс ажиллана.</p></div>
+      <div class="card"><h3>Гол санаа</h3><p>Database нь relational бүтэцтэй. Хүснэгтүүд foreign key холбоосоор холбогдсон.</p><p><strong>User table:</strong> хэрэглэгчийн мэдээлэл хадгалж, role болон department-тай холбоотой.</p><p><strong>Department:</strong> warehouse, production, safety, logistics хэлтсүүдийг удирддаг.</p><p><strong>ProductionLog:</strong> хэн, хэдэн кг бүтээгдэхүүн үйлдвэрлэснийг бүртгэнэ.</p></div>
       <div class="foot"><span>Database / ERD</span><span>07</span></div>
     </div>
   </section>
