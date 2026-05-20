@@ -396,38 +396,6 @@
 
   <section class="slide">
     <div class="content">
-      <div class="topbar"><div class="section"><b>02</b> Танилцуулгын бүтэц</div></div>
-      <h2>Үнэлгээтэй уялдсан дараалал</h2>
-      <div class="agenda">
-        <div class="agenda-item"><b>01</b><div><strong>Нүүр хуудас</strong><span>Төслийн нэр, зорилго, оролцогч</span></div></div>
-        <div class="agenda-item"><b>02</b><div><strong>Асуудал</strong><span>Тархсан өгөгдөл, удаан шийдвэр</span></div></div>
-        <div class="agenda-item"><b>03</b><div><strong>Шийдэл</strong><span>Нэгдсэн KPI dashboard</span></div></div>
-        <div class="agenda-item"><b>04</b><div><strong>Техникийн дэд бүтэц</strong><span>Архитектур, ERD, deployment</span></div></div>
-        <div class="agenda-item"><b>05</b><div><strong>Кодын хэрэгжилт</strong><span>API, хамгаалалт, тест</span></div></div>
-        <div class="agenda-item"><b>06</b><div><strong>Эрсдэл ба үнэлгээ</strong><span>Risk matrix, rubric</span></div></div>
-      </div>
-      <div class="wide-note">Mobile хувилбар нь vertical дэлгэц дээр уншигдахуйц, гол санааг богино блокуудаар харуулахад зориулагдсан.</div>
-      <div class="foot"><span>Танилцуулгын бүтэц</span><span>02</span></div>
-    </div>
-  </section>
-
-  <section class="slide">
-    <div class="content">
-      <div class="topbar"><div class="section"><b>03</b> Асуудал</div></div>
-      <h2>Үйлдвэрийн төлөвийг нэг дор харах боломж дутмаг</h2>
-      <p class="lead">Агуулах, үйлдвэрлэл, safety, logistics, RPM мэдээлэл тусдаа байвал шийдвэр удааширна.</p>
-      <div class="grid">
-        <div class="card"><h3>Excel / цаасан бүртгэл</h3><p>Гар алдаа их, бодит цагийн төлөв харагдахгүй.</p></div>
-        <div class="card"><h3>Чат ба аман мэдээлэл</h3><p>Нэгтгэл удаан, trace хийхэд хүндрэлтэй.</p></div>
-        <div class="card"><h3>Тусдаа тайлан</h3><p>KPI, safety, RPM, logistics хоорондоо холбоогүй харагдана.</p></div>
-      </div>
-      <div class="accent"><p>Гол асуудал: захирал үйлдвэрийн нөхцөл байдлыг 5 секундэд ойлгоход хангалттай нэгтгэсэн харагдац байхгүй.</p></div>
-      <div class="foot"><span>Асуудал</span><span>03</span></div>
-    </div>
-  </section>
-
-  <section class="slide">
-    <div class="content">
       <div class="topbar"><div class="section"><b>04</b> Шийдэл</div></div>
       <h2>Нэгдсэн KPI хяналтын самбар</h2>
       <div class="browser">
@@ -504,11 +472,11 @@
       <div class="topbar"><div class="section"><b>08</b> Кодын хэрэгжилт</div></div>
       <h2>Хамгаалагдсан API ба бизнес логик</h2>
       <div class="flow">
-        <div class="flow-node"><b>1</b><div><strong>JWT нэвтрэлт</strong><span>Session cookie шалгана</span></div></div>
-        <div class="flow-node"><b>2</b><div><strong>RBAC эрх</strong><span>Role ба department шалгана</span></div></div>
-        <div class="flow-node"><b>3</b><div><strong>Zod validation</strong><span>Input буруу бол database руу оруулахгүй</span></div></div>
-        <div class="flow-node"><b>4</b><div><strong>Prisma operation</strong><span>CRUD, query, relation</span></div></div>
-        <div class="flow-node"><b>5</b><div><strong>Audit ба response</strong><span>Чухал action бүртгэгдэнэ</span></div></div>
+        <div class="flow-node"><b>1</b><div><strong>JWT</strong><span>Login хийсний дараа JWT session ашиглаж хэрэглэгчийг баталгаажуулдаг.</span></div></div>
+        <div class="flow-node"><b>2</b><div><strong>RBAC</strong><span>RBAC буюу role-based access control ашигласан. ADMIN, MODERATOR, USER role бүр өөр эрхтэй.</span></div></div>
+        <div class="flow-node"><b>3</b><div><strong>Validation</strong><span>Request body-г Zod schema ашиглаж шалгадаг.</span></div></div>
+        <div class="flow-node"><b>4</b><div><strong>Prisma query</strong><span>Prisma ORM parameterized query ашиглаж SQL injection эрсдэлийг бууруулсан.</span></div></div>
+        <div class="flow-node"><b>5</b><div><strong>Audit log</strong><span>Чухал action бүр log болж хадгалагддаг.</span></div></div>
       </div>
       <div class="chip-row"><span class="chip">Нэвтрэлт</span><span class="chip">Хэрэглэгч</span><span class="chip">Материал</span><span class="chip">Production log</span><span class="chip">Safety</span><span class="chip">RPM</span></div>
       <div class="foot"><span>Кодын хэрэгжилт</span><span>08</span></div>
@@ -544,9 +512,10 @@
         <div class="gauge"><div class="dial"><b>830</b></div><h3>Уусмалын насос</h3><p class="small">шалгах</p></div>
       </div>
       <div class="grid">
-        <div class="card"><h3>Real-time update</h3><p>SWR cache, mutation update, 5 секундийн шинэчлэлт.</p></div>
-        <div class="card"><h3>Анхааруулга</h3><p>RPM, safety, material threshold давбал өнгөөр ялгана.</p></div>
-        <div class="card"><h3>Захирлын харагдац</h3><p>Гол KPI эхний дэлгэц дээр төвлөрнө.</p></div>
+        <div class="card"><h3>Жишээ</h3><p>Оператор EV 25mm үйлдвэрлэх үед насос хэдэн RPM дээр ажилласныг бүртгэнэ.</p></div>
+        <div class="card"><h3>EquipmentTelemetryLog</h3><p>Тэр өгөгдөл table руу хадгалагдаж, dashboard chart болон gauge шинэчилдэг.</p></div>
+        <div class="card"><h3>SWR</h3><p>SWR cache ашиглаж 5 секунд тутам шинэчлэгддэг.</p></div>
+        <div class="card"><h3>Alert</h3><p>RPM эсвэл material threshold хэтэрвэл alert гарч ирдэг.</p></div>
       </div>
       <div class="foot"><span>KPI ба RPM</span><span>10</span></div>
     </div>

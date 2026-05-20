@@ -406,21 +406,21 @@
     .e-audit { left: 250px; bottom: 26px; border-color: #0f172a; }
     .legend { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
     .legend span { font-size: 11px; font-weight: 800; color: #64748b; display: inline-flex; align-items: center; gap: 6px; }
-    .code-flow { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; margin-top: 18px; }
-    .sequence { display: grid; gap: 10px; }
+    .code-flow { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; margin-top: 14px; }
+    .sequence { display: grid; gap: 8px; }
     .seq {
       display: grid;
       grid-template-columns: 38px 1fr auto;
       align-items: center;
       gap: 11px;
-      padding: 12px;
+      padding: 9px 12px;
       border-radius: 13px;
       background: #fff;
       border: 1px solid #dce6f1;
     }
     .seq b {
-      width: 34px;
-      height: 34px;
+      width: 31px;
+      height: 31px;
       border-radius: 10px;
       display: grid;
       place-items: center;
@@ -428,8 +428,9 @@
       background: #2563eb;
       font-size: 12px;
     }
-    .seq strong { font-size: 14px; }
-    .seq span { color: #64748b; font-size: 12px; font-weight: 700; }
+    .seq > div { min-width: 0; }
+    .seq strong { display: block; margin-bottom: 3px; font-size: 13px; }
+    .seq > div > span { display: block; color: #64748b; font-size: 11px; font-weight: 700; line-height: 1.24; }
     .tag { border-radius: 999px; padding: 5px 9px; background: #eff6ff; color: #1d4ed8; font-size: 10px; font-weight: 900; white-space: nowrap; }
     .rpm-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 18px; margin-top: 18px; align-items: stretch; }
     .gauge-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
@@ -882,76 +883,6 @@
   <section class="slide">
     <div class="content">
       <div class="topbar">
-        <div class="section"><b>02</b> Танилцуулгын бүтэц</div>
-      </div>
-      <h2>Төслийг үнэлгээний шалгууртай уялдуулсан дараалал</h2>
-      <p class="lead" style="margin-top:8px;">Слайд бүр нь асуудал, шийдэл, архитектур, хэрэгжилт, эрсдэл, дүгнэлт болон үнэлгээний хүснэгттэй шууд холбогдоно.</p>
-      <div class="agenda">
-        <div class="agenda-item"><b>01</b><div><strong>Нүүр хуудас</strong><span>Төслийн нэр, зорилго, гол амлалт</span></div></div>
-        <div class="agenda-item"><b>02</b><div><strong>Танилцуулгын бүтэц</strong><span>Логик дараалал ба үнэлгээний холбоо</span></div></div>
-        <div class="agenda-item"><b>03</b><div><strong>Асуудал</strong><span>Тархсан өгөгдөл, удаан шийдвэр, эрсдэл</span></div></div>
-        <div class="agenda-item"><b>04</b><div><strong>Шийдэл</strong><span>Нэгдсэн KPI самбар ба хэлтсийн ажлын урсгал</span></div></div>
-        <div class="agenda-item"><b>05</b><div><strong>Техникийн дэд бүтэц</strong><span>Архитектур, ERD, deploy бүтэц</span></div></div>
-        <div class="agenda-item"><b>06</b><div><strong>Кодын хэрэгжилт</strong><span>API, хамгаалалт, бодит цагийн шинэчлэлт</span></div></div>
-        <div class="agenda-item"><b>07</b><div><strong>Эрсдэлийн менежмент</strong><span>Эрсдэл, түвшин, авах арга хэмжээ</span></div></div>
-        <div class="agenda-item"><b>08</b><div><strong>Дүгнэлт ба зорилт</strong><span>Үр дүн, дараагийн сайжруулалт</span></div></div>
-        <div class="agenda-item"><b>09</b><div><strong>Үнэлгээний хүснэгт</strong><span>100 онооны үнэлгээтэй нийцүүлэлт</span></div></div>
-      </div>
-      <div class="wide-note">Танилцуулгын гол зорилго: системийн үнэ цэнэ, техникийн үндэслэл, хамгаалалт, хэрэгжилт, эрсдэлийн бэлэн байдлыг богино хугацаанд ойлгуулах.</div>
-      <div class="foot"><span>Танилцуулгын бүтэц</span><span>02</span></div>
-    </div>
-  </section>
-
-  <section class="slide">
-    <div class="content">
-      <div class="topbar">
-        <div class="section"><b>03</b> Асуудал</div>
-      </div>
-      <h2>Үйлдвэрийн төлөвийг нэг дор харах боломж дутмаг</h2>
-      <p class="lead" style="margin-top:8px;max-width:9.8in;">Уул уурхайн тэсрэх бодисын үйлдвэрт агуулах, үйлдвэрлэл, аюулгүй байдал, ложистик, тоног төхөөрөмжийн мэдээлэл тусдаа эх үүсвэрт байвал шийдвэр удааширч, эрсдэл нэмэгдэнэ.</p>
-      <div class="problem-flow">
-        <div class="source-stack">
-          <div class="source">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 10h16M10 4v16"/></svg>
-            Excel болон гар бүртгэл
-          </div>
-          <div class="source">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
-            Чат, дуудлага, аман мэдээлэл
-          </div>
-          <div class="source">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-            Тусдаа тайлан, цаасан бүртгэл
-          </div>
-          <div class="source">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="5"/></svg>
-            RPM ба тоног төхөөрөмжийн мэдээ
-          </div>
-        </div>
-        <div class="arrow-big">→</div>
-        <div class="result-box">
-          <h3>Удирдлагад үүсэх хүндрэл</h3>
-          <div class="check-list">
-            <div class="check">KPI-г нэгтгэхэд хугацаа алдана.</div>
-            <div class="check">Агуулахын үлдэгдэл, үйлдвэрлэлийн log, safety incident зэрэг мэдээлэл хоорондоо салангид харагдана.</div>
-            <div class="check">Тоног төхөөрөмжийн RPM хэвийн бус үед анхааруулга хожимдох эрсдэлтэй.</div>
-            <div class="check">Захирал системийн нөхцөл байдлыг 5 секундэд ойлгоход хүндрэлтэй.</div>
-          </div>
-        </div>
-      </div>
-      <div class="grid grid-4" style="margin-top:18px;">
-        <div class="card"><h3>Агуулах</h3><p>Материалын хөдөлгөөн, үлдэгдэл, орох гарах бүртгэл нэг мөрөөр харагдах шаардлагатай.</p></div>
-        <div class="card"><h3>Үйлдвэрлэл</h3><p>Өдрийн log, хэмжээ, бүтээмж, төлөв графиктай холбогдох хэрэгтэй.</p></div>
-        <div class="card"><h3>Аюулгүй байдал</h3><p>Осол, ноцтой байдлын түвшин, авах арга хэмжээ, бүртгэлийн мөр шаардлагатай.</p></div>
-        <div class="card"><h3>Ложистик</h3><p>Тээвэр, хүргэлт, статус, саатал нэг dashboard-д нэгтгэгдэнэ.</p></div>
-      </div>
-      <div class="foot"><span>Асуудал</span><span>03</span></div>
-    </div>
-  </section>
-
-  <section class="slide">
-    <div class="content">
-      <div class="topbar">
         <div class="section"><b>04</b> Шийдэл</div>
       </div>
       <h2>Нэгдсэн KPI хяналтын самбар</h2>
@@ -1277,11 +1208,11 @@
       <p class="lead" style="margin-top:8px;">Кодын үндсэн зарчим нь хүсэлт бүрийг session, эрх, хэлтэс, баталгаажуулалт, database operation гэсэн дарааллаар шалгах явдал.</p>
       <div class="code-flow">
         <div class="sequence">
-          <div class="seq"><b>1</b><div><strong>JWT нэвтрэлтийн шалгалт</strong><span>Нэвтэрсэн хэрэглэгчийн session cookie шалгана.</span></div><span class="tag">нэвтрэлт</span></div>
-          <div class="seq"><b>2</b><div><strong>RBAC эрхийн шалгалт</strong><span>ADMIN, MODERATOR, USER эрх болон хэлтсийн хүрээг шалгана.</span></div><span class="tag">эрх</span></div>
-          <div class="seq"><b>3</b><div><strong>Оролтын баталгаажуулалт</strong><span>Zod schema request body, query, enum утгыг баталгаажуулна.</span></div><span class="tag">шалгалт</span></div>
-          <div class="seq"><b>4</b><div><strong>Prisma үйлдэл</strong><span>findMany, create, update, delete үйлдэл parameterized query-ээр ажиллана.</span></div><span class="tag">өгөгдөл</span></div>
-          <div class="seq"><b>5</b><div><strong>Бүртгэлийн мөр ба response</strong><span>Чухал action log-д бүртгэгдэж, UI-д шинэ төлөв буцна.</span></div><span class="tag">мөрдөх</span></div>
+          <div class="seq"><b>1</b><div><strong>JWT</strong><span>Login хийсний дараа JWT session ашиглаж хэрэглэгчийг баталгаажуулдаг.</span></div><span class="tag">auth</span></div>
+          <div class="seq"><b>2</b><div><strong>RBAC</strong><span>RBAC буюу role-based access control ашигласан. ADMIN, MODERATOR, USER role бүр өөр эрхтэй.</span></div><span class="tag">role</span></div>
+          <div class="seq"><b>3</b><div><strong>Validation</strong><span>Request body-г Zod schema ашиглаж шалгадаг.</span></div><span class="tag">Zod</span></div>
+          <div class="seq"><b>4</b><div><strong>Prisma query</strong><span>Prisma ORM parameterized query ашиглаж SQL injection эрсдэлийг бууруулсан.</span></div><span class="tag">DB</span></div>
+          <div class="seq"><b>5</b><div><strong>Audit log</strong><span>Чухал action бүр log болж хадгалагддаг.</span></div><span class="tag">log</span></div>
         </div>
         <div class="grid" style="gap:12px;">
           <div class="card">
@@ -1313,7 +1244,6 @@
           </div>
         </div>
       </div>
-      <div class="foot"><span>Кодын хэрэгжилт</span><span>08</span></div>
     </div>
   </section>
 
@@ -1404,12 +1334,13 @@
         </div>
         <div class="grid" style="gap:12px;">
           <div class="card">
-            <h3>Real-time шинэчлэлтийн арга</h3>
+            <h3>RPM telemetry шинэчлэлтийн урсгал</h3>
             <div class="check-list">
-              <div class="check">SWR cache ашиглаж API data-г тогтмол шинэчилнэ.</div>
-              <div class="check">Mutation update хийснээр CRUD-ийн дараа UI хурдан шинэчлэгдэнэ.</div>
-              <div class="check">Pagination ба lazy loading нь их өгөгдлийг нэг дор татахаас сэргийлнэ.</div>
-              <div class="check">Alert нь threshold давсан үзүүлэлтийг шууд тодруулна.</div>
+              <div class="check">Жишээ нь оператор EV 25mm бүтээгдэхүүн үйлдвэрлэх үед ямар насос хэдэн RPM дээр ажилласныг бүртгэнэ.</div>
+              <div class="check">Тэр өгөгдөл EquipmentTelemetryLog table руу хадгалагдана.</div>
+              <div class="check">Dashboard тэр өгөгдлийг уншаад chart болон gauge шинэчилдэг.</div>
+              <div class="check"><strong>SWR</strong> cache ашиглаж 5 секунд тутам шинэчлэгддэг.</div>
+              <div class="check"><strong>Alert</strong> RPM эсвэл material threshold хэтэрвэл alert гарч ирдэг.</div>
             </div>
           </div>
           <div class="grid grid-2" style="gap:12px;">
